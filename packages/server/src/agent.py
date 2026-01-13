@@ -13,7 +13,7 @@ from .scraper import (
 from ai_query.agents.output import SSEOutput
 
 # Initialize model
-MODEL = google("gemini-3-pro-preview", api_key=os.getenv('GOOGLE_API_KEY', ""))
+MODEL = google("gemini-2.5-pro", api_key=os.getenv('GOOGLE_API_KEY', ""))
 
 class ProfileResearchAgent(ChatAgent, SQLiteAgent):
     """
