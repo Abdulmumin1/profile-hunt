@@ -14,14 +14,6 @@ from ai_query.agents.output import SSEOutput
 
 # Initialize model
 MODEL = google("gemini-3-flash-preview", 
-    provider_options={
-        "google": {
-            "thinking_config": {
-                "include_thoughts": True,
-                "thinking_budget": 2048
-            }
-        }
-    },
 api_key=os.getenv('GOOGLE_API_KEY', ""))
 
 class ProfileResearchAgent(ChatAgent, SQLiteAgent):
@@ -36,6 +28,18 @@ class ProfileResearchAgent(ChatAgent, SQLiteAgent):
     enable_event_log = True
     event_retention = 86400 * 7  # Keep events for 7 days
 
+    @property
+
+    def provider_options(self):
+        return  {
+        "google": {
+            "thinking_config": {
+                "include_thoughts": True,
+                "thinking_budget": 2048
+            }
+        }
+    }
+    
     @property
     def db_path(self):
         # Store DB in data directory
