@@ -10,7 +10,7 @@ nixPkgs = ["python313"]
 startCommand = "python main.py"
 
 # Health check
-healthcheckPath = "/health"
+healthcheckPath = "/"
 healthcheckTimeout = 300
 
 # Restart policy
