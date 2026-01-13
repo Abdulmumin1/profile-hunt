@@ -60,7 +60,7 @@ if __name__ == "__main__":
     app.router.add_get("/health", health_handler)
 
     # Use PORT from environment (Railway sets this) or default to 8081
-    port = int(os.getenv("PORT", "8081"))
+    port = int(os.getenv("PORT", "8080"))
 
     print(f"🚀 Starting server on port {port}")
     print(f"📡 Health check: http://localhost:{port}/health")

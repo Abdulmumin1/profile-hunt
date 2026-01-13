@@ -19,4 +19,4 @@ restartPolicyMaxRetries = 3
 
 [service]
 # Internal port (Railway will provide PORT env var)
-internalPort = 8081
+internalPort = 8080
