@@ -13,6 +13,7 @@ Required environment variables:
 
 import os
 import sys
+from aiohttp import web
 from dotenv import load_dotenv
 from ai_query.agents import AgentServer, AgentServerConfig
 
@@ -23,6 +24,10 @@ from src.agent import ProfileResearchAgent
 
 # Load environment variables
 load_dotenv()
+
+# Health check handler
+async def health_handler(request):
+    return web.json_response({"status": "ok"})
 
 if __name__ == "__main__":
     if not os.getenv("TAVILY_API_KEY"):
@@ -44,9 +49,20 @@ if __name__ == "__main__":
         idle_timeout=3600,
         max_agents=50,
         allowed_origins=allowed_origins,
-        enable_rest_api=True    # Enable chat/state endpoints
+        enable_rest_api=True
     )
+
+    # Create server and app
+    server = AgentServer(ProfileResearchAgent, config=config)
+    app = server.create_app()
+
+    # Add health check endpoint for Railway
+    app.router.add_get("/health", health_handler)
 
     # Use PORT from environment (Railway sets this) or default to 8081
     port = int(os.getenv("PORT", "8081"))
-    AgentServer(ProfileResearchAgent, config=config).serve(port=port)
+
+    print(f"🚀 Starting server on port {port}")
+    print(f"📡 Health check: http://localhost:{port}/health")
+
+    web.run_app(app, port=port)
