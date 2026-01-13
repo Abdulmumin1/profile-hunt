@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     config = AgentServerConfig(
         idle_timeout=3600,
-        max_agents=50,
+        max_agents=800,
         allowed_origins=allowed_origins,
         enable_rest_api=True
     )
