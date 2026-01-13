@@ -1,0 +1,22 @@
+[build]
+builder = "nixpacks"
+
+[build.nixpacks]
+# Use Python 3.13
+nixPkgs = ["python313"]
+
+[deploy]
+# Start command
+startCommand = "python main.py"
+
+# Health check
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+
+# Restart policy
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+[service]
+# Internal port (Railway will provide PORT env var)
+internalPort = 8081

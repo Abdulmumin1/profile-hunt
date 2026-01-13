@@ -1,0 +1,13 @@
+# Nixpacks configuration for Railway deployment
+
+[phases.setup]
+nixPkgs = ["python313", "gcc", "libxml2", "libxslt"]
+
+[phases.install]
+cmds = [
+    "pip install uv",
+    "uv sync --no-dev"
+]
+
+[start]
+cmd = "uv run python main.py"
