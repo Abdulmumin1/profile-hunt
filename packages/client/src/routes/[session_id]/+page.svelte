@@ -5,6 +5,7 @@ https://svelte.dev/e/invalid_arguments_usage -->
   import { page } from "$app/state";
   import { goto } from "$app/navigation";
   import { marked } from "marked";
+  import { PUBLIC_API_URL } from "$env/static/public";
   import {
     Send,
     Search,
@@ -39,7 +40,7 @@ https://svelte.dev/e/invalid_arguments_usage -->
     timestamp: number;
   }
 
-  const API_BASE = "http://localhost:8081";
+  const API_BASE = PUBLIC_API_URL || "http://localhost:8081";
 
   let messages: Message[] = $state([]);
   let steps: Step[] = $state([]);
