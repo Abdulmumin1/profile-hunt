@@ -16,7 +16,3 @@ healthcheckTimeout = 300
 # Restart policy
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
-
-[service]
-# Internal port (Railway will provide PORT env var)
-internalPort = 8080

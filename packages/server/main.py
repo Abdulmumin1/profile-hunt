@@ -25,7 +25,7 @@ from src.agent import ProfileResearchAgent
 # Load environment variables
 load_dotenv()
 
-# Health check handler
+# Health check handler (works for both / and /health)
 async def health_handler(request):
     return web.json_response({"status": "ok"})
 
@@ -56,13 +56,13 @@ if __name__ == "__main__":
     server = AgentServer(ProfileResearchAgent, config=config)
     app = server.create_app()
 
-    # Add health check endpoint for Railway
+    # Add health check endpoints for Railway
+    app.router.add_get("/", health_handler)
     app.router.add_get("/health", health_handler)
 
-    # Use PORT from environment (Railway sets this) or default to 8081
     port = int(os.getenv("PORT", "8080"))
 
     print(f"🚀 Starting server on port {port}")
-    print(f"📡 Health check: http://localhost:{port}/health")
+    print(f"📡 Health check: http://0.0.0.0:{port}/")
 
-    web.run_app(app, port=port)
+    web.run_app(app, host="0.0.0.0", port=port)
